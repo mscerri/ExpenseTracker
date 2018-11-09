@@ -34,16 +34,6 @@ namespace ExpenseTracker.App
         
         public void Configure(IApplicationBuilder app)
         {
-            if (Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseHttpsRedirection();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
