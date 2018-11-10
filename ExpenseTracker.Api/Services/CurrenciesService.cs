@@ -34,7 +34,7 @@ namespace ExpenseTracker.Api.Services
         {
             if (createCurrencyDto == null) throw new ArgumentNullException(nameof(createCurrencyDto));
 
-            var entityToCreate = new Currency()
+            var entityToCreate = new Currency
             {
                 Name = createCurrencyDto.Name
             };

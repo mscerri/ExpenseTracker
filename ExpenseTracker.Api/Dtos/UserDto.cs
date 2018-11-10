@@ -1,15 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTracker.Api.Dtos
 {
     public class UserDto
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Surname { get; set; }
+
         public string Email { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

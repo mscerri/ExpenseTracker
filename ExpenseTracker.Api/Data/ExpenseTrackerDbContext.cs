@@ -25,7 +25,16 @@ namespace ExpenseTracker.Api.Data
         {
             modelBuilder.Entity<User>(m =>
             {
-                m.HasIndex(b => b.Email)
+                m.HasIndex(u => u.UserGuid)
+                    .IsUnique();
+
+                m.HasIndex(u => u.Email)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<Transaction>(m =>
+            {
+                m.HasIndex(t => t.TransactionGuid)
                     .IsUnique();
             });
         }

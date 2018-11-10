@@ -21,7 +21,7 @@ namespace ExpenseTracker.Api.Models
         public string Surname { get; set; }
 
         [Required]
-        public byte[] HashedPassword { get; set; }
+        public string HashedPassword { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

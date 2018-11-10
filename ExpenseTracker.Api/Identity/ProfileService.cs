@@ -1,29 +1,67 @@
-﻿using IdentityServer4.Models;
+﻿using ExpenseTracker.Api.Services;
+using ExpenseTracker.Api.Services.Exceptions;
+using IdentityServer4.Extensions;
+using IdentityServer4.Models;
 using IdentityServer4.Services;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using ExpenseTracker.Api.Services;
+using IdentityModel;
 
 namespace ExpenseTracker.Api.Identity
 {
     public class ProfileService : IProfileService
     {
         private readonly IUsersService _usersService;
+        private readonly ILogger<ProfileService> _logger;
 
-        public ProfileService(IUsersService usersService)
+        public ProfileService(IUsersService usersService, ILogger<ProfileService> logger)
         {
             _usersService = usersService;
+            _logger = logger;
         }
 
-        public Task GetProfileDataAsync(ProfileDataRequestContext context)
+        public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            throw new NotImplementedException();
+            var sub = context.Subject?.GetSubjectId();
+            if (sub == null) throw new Exception("No subject claim present");
+
+            try
+            {
+                var user = await _usersService.FindUserByUserGuidAsync(Guid.Parse(sub));
+
+                var claims = new List<Claim>
+                {
+                    new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
+                    new Claim(JwtClaimTypes.GivenName, user.Name),
+                    new Claim(JwtClaimTypes.FamilyName, user.Surname),
+                    new Claim(JwtClaimTypes.Email, user.Email)
+                };
+                context.AddRequestedClaims(claims);
+            }
+            catch (NotFoundException)
+            {
+                _logger.LogWarning("No user found matching subject Id: {sub}", sub);
+            }
         }
 
-        public Task IsActiveAsync(IsActiveContext context)
+        public async Task IsActiveAsync(IsActiveContext context)
         {
-            context.IsActive = true;
-            return Task.CompletedTask;
+            var sub = context.Subject?.GetSubjectId();
+            if (sub == null) throw new Exception("No subject claim present");
+
+            try
+            {
+                var user = await _usersService.FindUserByUserGuidAsync(Guid.Parse(sub));
+                context.IsActive = user.IsActive;
+            }
+            catch (NotFoundException)
+            {
+                _logger.LogWarning("No user found matching subject Id: {sub}", sub);
+                context.IsActive = false;
+            }
         }
     }
 }

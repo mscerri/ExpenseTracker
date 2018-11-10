@@ -24,6 +24,8 @@ namespace ExpenseTracker.Api.Controllers
         [HttpPost]
         [ValidateModel]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto userRegistrationDto)
         {
             var user = await _usersService.RegisterUserAsync(userRegistrationDto);

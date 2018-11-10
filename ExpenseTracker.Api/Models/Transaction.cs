@@ -30,6 +30,11 @@ namespace ExpenseTracker.Api.Models
         public int TransactionCategoryId { get; set; }
 
         [Required]
+        public Currency Currency { get; set; }
+
+        public int CurrencyId { get; set; }
+
+        [Required]
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset? UpdateAt { get; set; }
