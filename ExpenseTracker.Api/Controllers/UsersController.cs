@@ -24,6 +24,8 @@ namespace ExpenseTracker.Api.Controllers
         [HttpPost]
         [ValidateModel]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto userRegistrationDto)
         {
             var user = await _usersService.RegisterUserAsync(userRegistrationDto);
@@ -31,18 +33,21 @@ namespace ExpenseTracker.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetUser")]
+        [Authorize]
         public IActionResult GetUser(long id)
         {
             return Ok();
         }
 
         [HttpGet("{id}/transactions")]
+        [Authorize]
         public IActionResult GetUserTransactions(long id)
         {
             return Ok();
         }
 
         [HttpPost("{id}/transactions")]
+        [Authorize]
         public IActionResult CreateUserTransaction(long id)
         {
             return CreatedAtRoute("GetTransaction", new {id = 1}, new {transactionid = 1});

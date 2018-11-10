@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.Api.Entities;
+﻿using ExpenseTracker.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -9,6 +9,7 @@ namespace ExpenseTracker.Api.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionCategory> TransactionCategories { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
 
         public ExpenseTrackerDbContext(DbContextOptions<ExpenseTrackerDbContext> options) : base(options)
         {
@@ -22,7 +23,20 @@ namespace ExpenseTracker.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(m =>
+            {
+                m.HasIndex(u => u.UserGuid)
+                    .IsUnique();
 
+                m.HasIndex(u => u.Email)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<Transaction>(m =>
+            {
+                m.HasIndex(t => t.TransactionGuid)
+                    .IsUnique();
+            });
         }
     }
 }
