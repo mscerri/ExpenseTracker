@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTracker.Api.Models
 {
-    public class TransactionCategory
+    public class Currency
     {
-        public int TransactionCategoryId { get; set; }
+        public int CurrencyId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -13,7 +13,7 @@ namespace ExpenseTracker.Api.Models
         [Required]
         public DateTimeOffset CreatedAt { get; set; }
 
-        public DateTimeOffset? UpdatedAt { get; set; }
+        public DateTimeOffset? UpdateAt { get; set; }
 
         [Timestamp]
         public byte[] Version { get; set; }

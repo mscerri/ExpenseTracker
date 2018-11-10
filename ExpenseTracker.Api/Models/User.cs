@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ExpenseTracker.Api.Entities
+namespace ExpenseTracker.Api.Models
 {
     public class User
     {
         public long UserId { get; set; }
 
         [Required]
-        public Guid UserSubjectId { get; set; }
+        public Guid UserGuid { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -22,6 +22,14 @@ namespace ExpenseTracker.Api.Entities
 
         [Required]
         public byte[] HashedPassword { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
+
+        [Required]
+        public DateTimeOffset CreatedAt { get; set; }
+
+        public DateTimeOffset? UpdatedAt { get; set; }
 
         [Timestamp]
         public byte[] Version { get; set; }

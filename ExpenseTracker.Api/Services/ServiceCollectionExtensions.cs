@@ -8,6 +8,8 @@ namespace ExpenseTracker.Api.Services
         public static void AddServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.TryAddScoped<IUsersService, UsersService>();
+            serviceCollection.TryAddScoped<ITransactionCategoriesService, TransactionCategoriesService>();
+            serviceCollection.TryAddScoped<ICurrenciesService, CurrenciesService>();
         }
     }
 }

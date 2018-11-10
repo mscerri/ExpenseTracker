@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using ExpenseTracker.Api.Data;
 using ExpenseTracker.Api.Identity;
 using ExpenseTracker.Api.Services;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.Api
@@ -45,8 +48,24 @@ namespace ExpenseTracker.Api
 
             services.AddApiVersioning(options => options.AssumeDefaultVersionWhenUnspecified = true);
 
+            var policyToScopesMappings = new Dictionary<string, string[]>
+            {
+                { Constants.Policy.Management, new[] { Constants.Scopes.Manage } },
+                { Constants.Policy.EndUser, new[] { Constants.Scopes.TrackExpenses } }
+            };
+
             services.AddMvcCore()
-                .AddAuthorization()
+                .AddAuthorization(options =>
+                {
+                    foreach (var policyToScopesMapping in policyToScopesMappings)
+                    {
+                        options.AddPolicy(policyToScopesMapping.Key, policy =>
+                        {
+                            policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                                .RequireAuthenticatedUser().RequireClaim("scope", policyToScopesMapping.Value);
+                        });
+                    }
+                })
                 .AddDataAnnotations()
                 .AddJsonFormatters()
                 .AddApiExplorer();
