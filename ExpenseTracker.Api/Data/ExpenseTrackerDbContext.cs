@@ -22,7 +22,11 @@ namespace ExpenseTracker.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<User>(m =>
+            {
+                m.HasIndex(b => b.Email)
+                    .IsUnique();
+            });
         }
     }
 }
