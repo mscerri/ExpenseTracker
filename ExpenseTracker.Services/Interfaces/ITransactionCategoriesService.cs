@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ExpenseTracker.Api.Dtos;
+using ExpenseTracker.DTO;
 
 namespace ExpenseTracker.Services.Interfaces
 {

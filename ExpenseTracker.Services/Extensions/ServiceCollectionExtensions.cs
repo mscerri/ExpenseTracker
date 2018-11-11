@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.Api.Dtos;
+﻿using ExpenseTracker.DTO;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;

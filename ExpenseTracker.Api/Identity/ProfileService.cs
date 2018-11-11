@@ -1,4 +1,7 @@
-﻿using IdentityServer4.Extensions;
+﻿using ExpenseTracker.Services.Exceptions;
+using ExpenseTracker.Services.Interfaces;
+using IdentityModel;
+using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
@@ -6,10 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ExpenseTracker.Services;
-using ExpenseTracker.Services.Exceptions;
-using ExpenseTracker.Services.Interfaces;
-using IdentityModel;
 
 namespace ExpenseTracker.Api.Identity
 {
@@ -35,7 +34,6 @@ namespace ExpenseTracker.Api.Identity
 
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
                     new Claim(JwtClaimTypes.GivenName, user.Name),
                     new Claim(JwtClaimTypes.FamilyName, user.Surname),
                     new Claim(JwtClaimTypes.Email, user.Email)

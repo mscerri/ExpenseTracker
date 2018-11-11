@@ -1,5 +1,5 @@
-﻿using ExpenseTracker.Api.Dtos;
-using ExpenseTracker.Data.Models;
+﻿using ExpenseTracker.Data.Models;
+using ExpenseTracker.DTO;
 
 namespace ExpenseTracker.Services
 {

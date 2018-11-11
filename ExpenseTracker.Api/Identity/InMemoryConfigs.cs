@@ -1,9 +1,10 @@
-﻿using IdentityServer4.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using IdentityModel;
+using IdentityServer4.Models;
 
-namespace ExpenseTracker.Api
+namespace ExpenseTracker.Api.Identity
 {
-    public class InMemoryConfigs
+    public static class InMemoryConfigs
     {
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
@@ -26,6 +27,12 @@ namespace ExpenseTracker.Api
                     {
                         new Scope(Constants.Scopes.TrackExpenses),
                         new Scope(Constants.Policy.Management)
+                    },
+                    UserClaims =
+                    {
+                        JwtClaimTypes.GivenName,
+                        JwtClaimTypes.FamilyName,
+                        JwtClaimTypes.Email
                     }
                 }
             };

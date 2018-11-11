@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using ExpenseTracker.Api.Dtos;
 using ExpenseTracker.Api.Validation;
+using ExpenseTracker.DTO;
 using ExpenseTracker.Services;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;

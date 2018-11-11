@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseTracker.Api.Data;
-using ExpenseTracker.Api.Dtos;
 using ExpenseTracker.Data.Models;
+using ExpenseTracker.DTO;
 using ExpenseTracker.Services.Exceptions;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -36,7 +36,8 @@ namespace ExpenseTracker.Services
                 Name = userRegistrationDto.Name,
                 Surname = userRegistrationDto.Surname,
                 Email = userRegistrationDto.Email,
-                HashedPassword = _passwordHasher.HashPassword(null, userRegistrationDto.Password)
+                HashedPassword = _passwordHasher.HashPassword(null, userRegistrationDto.Password),
+                IsActive = true
             };
             _dbContext.Users.Add(entityToCreate);
             await _dbContext.SaveChangesAsync();
@@ -65,5 +66,17 @@ namespace ExpenseTracker.Services
             var verificationResult = _passwordHasher.VerifyHashedPassword(null, user.HashedPassword, password);
             return verificationResult == PasswordVerificationResult.Success;
         }
+
+        public async Task<UserDto> UpdateUserAsync(Guid userGuid, UserDto userDto)
+        {
+            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
+
+            var user = await _dbContext.Users.SingleElementAsync(u => u.UserGuid == userGuid);
+            user.Name = userDto.Name;
+            user.Surname = userDto.Surname;
+            await _dbContext.SaveChangesAsync();
+
+            return user.ToDto();
+        }        
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExpenseTracker.Api.Data;
-using ExpenseTracker.Api.Dtos;
 using ExpenseTracker.Data.Models;
+using ExpenseTracker.DTO;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

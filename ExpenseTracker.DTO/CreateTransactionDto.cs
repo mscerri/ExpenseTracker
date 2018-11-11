@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.Api.Dtos
+﻿namespace ExpenseTracker.DTO
 {
     public class CreateTransactionDto
     {
