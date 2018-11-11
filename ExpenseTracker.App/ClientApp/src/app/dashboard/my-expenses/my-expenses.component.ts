@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateTransaction } from '../models/createtransaction.interface';
 import { UserTransactionsService } from '../services/usertransactions.service';
+import { Transaction } from '../models/transaction.interface';
+import { Observable } from 'rxjs/Observable';
+import { Currency } from '../models/currency.interface';
+import { TransactionCategory } from '../models/transactioncategory.interface';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-my-expenses',
@@ -13,36 +18,42 @@ export class MyExpensesComponent implements OnInit {
   isRequesting: boolean;
   submitted: boolean = false;
 
+  isLoading: boolean;
+
+  public transactions$: Observable<Transaction[]>;
+  public categories$: Observable<TransactionCategory[]>;
+  public currencies$: Observable<Currency[]>;
+
   constructor(private userTransactionsService: UserTransactionsService) { }
 
   ngOnInit() {
+    this.categories$ = this.userTransactionsService.getCategories();
+    this.currencies$ = this.userTransactionsService.getCurrencies();
+
+    this.loadExpenses();
   }
 
-  addExpense({ value, valid }: { value: CreateTransaction, valid: boolean }) {
-    if (!valid) return;
+  loadExpenses() {
+    this.isLoading = true;
+    this.transactions$ = this.userTransactionsService.getCurrentUserTransactions().finally(() => this.isLoading = false);
+  }
+
+  addExpense(addExpenseForm: NgForm) {
+    if (!addExpenseForm.valid) return;
 
     this.isRequesting = true;
-    this.userTransactionsService.createUserTransaction(value)
+    this.userTransactionsService.createUserTransaction(addExpenseForm.value)
       .finally(() => this.isRequesting = false)
       .subscribe(result => {
-        console.log(result);
-      },
-      errors => this.errors = errors);
+        this.errors = '';
+        this.loadExpenses();     
+        addExpenseForm.reset();
+      }, errors => this.errors = errors);
   }
-  // registerUser({ value, valid }: { value: UserRegistration, valid: boolean }) {
-  //   this.submitted = true;
-  //   this.isRequesting = true;
-  //   this.errors = '';
-  //   if (valid) {
-  //     this.userService.register(value)
-  //       .finally(() => this.isRequesting = false)
-  //       .subscribe(
-  //         result => {
-  //           if (result) {
-  //             this.router.navigate(['/login'], { queryParams: { brandNew: true, email: value.email } });
-  //           }
-  //         },
-  //         errors => this.errors = errors);
-  //   }
-  // }
+
+  removeExpense(transaction: Transaction) {
+    this.userTransactionsService.deleteUserTransaction(transaction).subscribe(result => {
+      this.loadExpenses();
+    });
+  }
 }

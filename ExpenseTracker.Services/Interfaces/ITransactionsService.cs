@@ -11,5 +11,7 @@ namespace ExpenseTracker.Services.Interfaces
         Task<TransactionDto> FindTransactionByGuidAsync(Guid transactionGuid);
         Task<TransactionDto> CreateTransactionAsync(CreateTransactionDto createTransactionDto, Guid userGuid);
         Task<TransactionDto> UpdateTransactionAsync(Guid transactionGuid, UpdateTransactionDto updateTransactionDto);
+        Task DeleteTransactionAsync(Guid transactionGuid);
+        Task<bool> ValidateTransactionUserOwnershipAsync(Guid transactionGuid, Guid userGuid);
     }
 }

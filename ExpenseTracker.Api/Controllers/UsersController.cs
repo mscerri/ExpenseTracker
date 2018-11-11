@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.Extensions.Logging;
 
 namespace ExpenseTracker.Api.Controllers
 {
@@ -16,11 +18,13 @@ namespace ExpenseTracker.Api.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly ITransactionsService _transactionsService;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUsersService usersService, ITransactionsService transactionsService)
+        public UsersController(IUsersService usersService, ITransactionsService transactionsService, ILogger<UsersController> logger)
         {
             _usersService = usersService;
             _transactionsService = transactionsService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -46,7 +50,10 @@ namespace ExpenseTracker.Api.Controllers
         {
             var userGuid = User.GetUserGuid();
             if (userGuid == null)
+            {
+                _logger.LogWarning("A user context is required to execute operation {operationName}", nameof(GetCurrentUser));
                 return Forbid();
+            }
 
             var response = await _usersService.FindUserByGuidAsync(userGuid.Value);
             return Ok(response);
@@ -75,7 +82,10 @@ namespace ExpenseTracker.Api.Controllers
         {
             var userGuid = User.GetUserGuid();
             if (userGuid == null)
+            {
+                _logger.LogWarning("A user context is required to execute operation {operationName}", nameof(UpdateCurrentUser));
                 return Forbid();
+            }
 
             var response = await _usersService.UpdateUserAsync(userGuid.Value, userDto);
             return Ok(response);
@@ -102,7 +112,10 @@ namespace ExpenseTracker.Api.Controllers
         {
             var userGuid = User.GetUserGuid();
             if (userGuid == null)
+            {
+                _logger.LogWarning("A user context is required to execute operation {operationName}", nameof(GetCurrentUserTransactions));
                 return Forbid();
+            }
 
             var response = await _transactionsService.ListAllTransactionsForUserAsync(userGuid.Value);
             return Ok(response);
@@ -127,7 +140,10 @@ namespace ExpenseTracker.Api.Controllers
         {
             var userGuid = User.GetUserGuid();
             if (userGuid == null)
+            {
+                _logger.LogWarning("A user context is required to execute operation {operationName}", nameof(CreateCurrentUserTransaction));
                 return Forbid();
+            }
 
             var response = await _transactionsService.CreateTransactionAsync(createTransactionDto, userGuid.Value);
             return CreatedAtRoute("GetTransaction", new { id = response.Id }, response);

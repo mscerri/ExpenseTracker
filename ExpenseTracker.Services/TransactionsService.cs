@@ -94,5 +94,22 @@ namespace ExpenseTracker.Services
 
             return transaction.ToDto();
         }
+
+        public async Task DeleteTransactionAsync(Guid transactionGuid)
+        {
+            var transaction = await _dbContext.Transactions.SingleElementAsync(t => t.TransactionGuid == transactionGuid);
+            _dbContext.Transactions.Remove(transaction);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ValidateTransactionUserOwnershipAsync(Guid transactionGuid, Guid userGuid)
+        {
+            var transaction = await _dbContext.Transactions
+                .Where(t => t.TransactionGuid == transactionGuid && 
+                            t.User.UserGuid == userGuid)
+                .FirstOrDefaultAsync();
+
+            return transaction != null;
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace ExpenseTracker.Api
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme, o =>
                 {
-                    o.Authority = "http://localhost:24415";
+                    o.Authority = "http://localhost:56275";
                     o.SupportedTokens = SupportedTokens.Jwt;
                     o.RequireHttpsMetadata = false;
                 });

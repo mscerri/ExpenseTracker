@@ -37,6 +37,23 @@ namespace ExpenseTracker.Api.Data
                 m.HasIndex(t => t.TransactionGuid)
                     .IsUnique();
             });
+
+            modelBuilder.Entity<Currency>().HasData(
+                new Currency { CurrencyId = 1, Name = "CHF - Swiss Franc" },
+                new Currency { CurrencyId = 2, Name = "EUR - Euro" },
+                new Currency { CurrencyId = 3, Name = "USD - U.S. dollar" });
+
+            modelBuilder.Entity<TransactionCategory>().HasData(
+                new TransactionCategory { TransactionCategoryId = 1, Name = "Food & Groceries" },
+                new TransactionCategory { TransactionCategoryId = 2, Name = "Utilities & Bills" },
+                new TransactionCategory { TransactionCategoryId = 3, Name = "Transportation" },
+                new TransactionCategory { TransactionCategoryId = 4, Name = "Medical/Healthcare" },
+                new TransactionCategory { TransactionCategoryId = 5, Name = "Houshold item/supplies" },
+                new TransactionCategory { TransactionCategoryId = 6, Name = "Personal" },
+                new TransactionCategory { TransactionCategoryId = 7, Name = "Gifts/donations" },
+                new TransactionCategory { TransactionCategoryId = 8, Name = "Entertainment" },
+                new TransactionCategory { TransactionCategoryId = 9, Name = "Retirement" },
+                new TransactionCategory { TransactionCategoryId = 10, Name = "Insurance" });
         }
     }
 }
