@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /ExpenseTracker.Api/tempkey.rsa
 .vscode/
+/src/ExpenseTracker.Api/tempkey.rsa

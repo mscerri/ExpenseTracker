@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api", "ExpenseTracker.Api\ExpenseTracker.Api.csproj", "{12A68B23-4F40-47BC-987E-3B8B0714019B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api", "src\ExpenseTracker.Api\ExpenseTracker.Api.csproj", "{12A68B23-4F40-47BC-987E-3B8B0714019B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.App", "ExpenseTracker.App\ExpenseTracker.App.csproj", "{BD08F10A-A0A3-4E50-B51A-5927182B7CE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.App", "src\ExpenseTracker.App\ExpenseTracker.App.csproj", "{BD08F10A-A0A3-4E50-B51A-5927182B7CE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api.Tests", "ExpenseTracker.Api.Tests\ExpenseTracker.Api.Tests.csproj", "{05AE7F20-6B65-4453-B3A6-BE304D2291F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api.Tests", "src\ExpenseTracker.Api.Tests\ExpenseTracker.Api.Tests.csproj", "{05AE7F20-6B65-4453-B3A6-BE304D2291F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Services", "ExpenseTracker.Services\ExpenseTracker.Services.csproj", "{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Services", "src\ExpenseTracker.Services\ExpenseTracker.Services.csproj", "{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Data", "ExpenseTracker.Data\ExpenseTracker.Data.csproj", "{C1A7C21D-93E4-4D15-B384-474A060BCAD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Data", "src\ExpenseTracker.Data\ExpenseTracker.Data.csproj", "{C1A7C21D-93E4-4D15-B384-474A060BCAD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.DTO", "ExpenseTracker.DTO\ExpenseTracker.DTO.csproj", "{2444EB0A-104F-4844-B76B-894485210519}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.DTO", "src\ExpenseTracker.DTO\ExpenseTracker.DTO.csproj", "{2444EB0A-104F-4844-B76B-894485210519}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
