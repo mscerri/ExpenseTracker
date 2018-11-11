@@ -1,4 +1,4 @@
-# Expense Tracker
+# Expense Tracker [![Build Status](https://travis-ci.com/mscerri/ExpenseTracker.svg?branch=master)](https://travis-ci.com/mscerri/ExpenseTracker)
 Personal expense tracker
 
 ## Development Environment
