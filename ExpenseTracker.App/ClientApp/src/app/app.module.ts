@@ -1,34 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpModule, XHRBackend } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+
+import { Routing } from './app.routing';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+
+import { AccountModule } from './account/account.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+
+import { ConfigService } from './shared/services/config.service';
+import { AuthenticateXHRBackend } from './authenticate-xhr.backend';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
+    AccountModule,
+    DashboardModule,
+    BrowserModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    HttpModule,
+    Routing,
+    NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    {
+      provide: XHRBackend,
+      useClass: AuthenticateXHRBackend
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

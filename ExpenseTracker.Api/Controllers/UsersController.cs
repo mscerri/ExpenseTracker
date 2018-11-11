@@ -1,16 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using ExpenseTracker.Api.Extensions;
+﻿using ExpenseTracker.Api.Extensions;
 using ExpenseTracker.Api.Validation;
 using ExpenseTracker.DTO;
-using ExpenseTracker.Services;
 using ExpenseTracker.Services.Interfaces;
-using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite.Internal.UrlActions;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ExpenseTracker.Api.Controllers
 {

@@ -68,13 +68,13 @@ namespace ExpenseTracker.Api
                 .AddJsonFormatters()
                 .AddApiExplorer();
 
-            //services.AddCors(o => o.AddPolicy("AllowCrossOriginRequests", builder =>
-            //{
-            //    builder
-            //        .AllowAnyOrigin()
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader();
-            //}));
+            services.AddCors(o => o.AddPolicy("AllowCrossOriginRequests", builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
 
             services.AddDbContext<ExpenseTrackerDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ExpenseTrackerDatabase")));
@@ -86,7 +86,7 @@ namespace ExpenseTracker.Api
 
         public void Configure(IApplicationBuilder app)
         {
-            //app.UseCors("AllowCrossOriginRequests");
+            app.UseCors("AllowCrossOriginRequests");
             app.UseIdentityServer();
             app.UseExpenseTrackerExceptionHandler();
             app.UseMvc();
