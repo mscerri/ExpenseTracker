@@ -47,6 +47,9 @@ namespace ExpenseTracker.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("Money");
+
                     b.Property<DateTimeOffset>("CreatedAt");
 
                     b.Property<int>("CurrencyId");
@@ -63,8 +66,6 @@ namespace ExpenseTracker.Data.Migrations
                     b.Property<DateTimeOffset?>("UpdateAt");
 
                     b.Property<long>("UserId");
-
-                    b.Property<decimal>("Value");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace ExpenseTracker.Services
+namespace ExpenseTracker.Services.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -12,6 +12,7 @@ namespace ExpenseTracker.Services
         {
             serviceCollection.TryAddScoped<IUsersService, UsersService>();
             serviceCollection.TryAddScoped<IPasswordHasher<UserDto>, PasswordHasher<UserDto>>();
+            serviceCollection.TryAddScoped<ITransactionsService, TransactionsService>();
             serviceCollection.TryAddScoped<ITransactionCategoriesService, TransactionCategoriesService>();
             serviceCollection.TryAddScoped<ICurrenciesService, CurrenciesService>();
         }

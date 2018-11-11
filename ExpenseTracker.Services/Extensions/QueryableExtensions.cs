@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ExpenseTracker.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExpenseTracker.Services
+namespace ExpenseTracker.Services.Extensions
 {
     public static class QueryableExtensions
     {

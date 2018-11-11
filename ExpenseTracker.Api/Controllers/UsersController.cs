@@ -2,12 +2,15 @@
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using ExpenseTracker.Api.Extensions;
 using ExpenseTracker.Api.Validation;
 using ExpenseTracker.DTO;
 using ExpenseTracker.Services;
 using ExpenseTracker.Services.Interfaces;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite.Internal.UrlActions;
 
 namespace ExpenseTracker.Api.Controllers
 {
@@ -16,10 +19,12 @@ namespace ExpenseTracker.Api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUsersService _usersService;
+        private readonly ITransactionsService _transactionsService;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, ITransactionsService transactionsService)
         {
             _usersService = usersService;
+            _transactionsService = transactionsService;
         }
 
         [HttpPost]
@@ -34,21 +39,49 @@ namespace ExpenseTracker.Api.Controllers
             return CreatedAtRoute("GetUser", new { id = user.Id }, user);
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
+        [HttpGet("me", Name = "GetCurrentUser")]
         [Authorize(Constants.Policy.EndUser)]
         [ValidateModel]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<IActionResult> GetCurrentUser()
         {
-            if (!Guid.TryParse(id, out var userGuid))
-            {
-                ModelState.AddModelError("id", "ID provided is not in a valid format");
-                return BadRequest(ModelState);
-            }
+            var userGuid = User.GetUserGuid();
+            if (userGuid == null)
+                return Forbid();
 
-            var response = await _usersService.FindUserByUserGuidAsync(userGuid);
+            var response = await _usersService.FindUserByGuidAsync(userGuid.Value);
+            return Ok(response);
+        }
+
+        [HttpGet("{id}", Name = "GetUser")]
+        [Authorize(Constants.Policy.Management)]
+        [ValidateModel]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetUser(Guid id)
+        {
+            var response = await _usersService.FindUserByGuidAsync(id);
+            return Ok(response);
+        }
+
+        [HttpPut("me")]
+        [Authorize(Constants.Policy.EndUser)]
+        [ValidateModel]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdateCurrentUser([FromBody] UserDto userDto)
+        {
+            var userGuid = User.GetUserGuid();
+            if (userGuid == null)
+                return Forbid();
+
+            var response = await _usersService.UpdateUserAsync(userGuid.Value, userDto);
             return Ok(response);
         }
 
@@ -58,30 +91,61 @@ namespace ExpenseTracker.Api.Controllers
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationError[]), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateUser(string id, [FromBody] UserDto userDto)
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserDto userDto)
         {
-            if (!Guid.TryParse(id, out var userGuid))
-            {
-                ModelState.AddModelError("id", "ID provided is not in a valid format");
-                return BadRequest(ModelState);
-            }
+            var response = await _usersService.UpdateUserAsync(id, userDto);
+            return Ok(response);
+        }
 
-            var response = await _usersService.UpdateUserAsync(userGuid, userDto);
+        [HttpGet("me/transactions")]
+        [Authorize(Constants.Policy.EndUser)]
+        [ProducesResponseType(typeof(TransactionDto[]), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetCurrentUserTransactions()
+        {
+            var userGuid = User.GetUserGuid();
+            if (userGuid == null)
+                return Forbid();
+
+            var response = await _transactionsService.ListAllTransactionsForUserAsync(userGuid.Value);
             return Ok(response);
         }
 
         [HttpGet("{id}/transactions")]
-        [Authorize]
-        public IActionResult GetUserTransactions(string id)
+        [Authorize(Constants.Policy.Management)]
+        [ProducesResponseType(typeof(TransactionDto[]), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetUserTransactions(Guid id)
         {
-            return Ok();
+            var response = await _transactionsService.ListAllTransactionsForUserAsync(id);
+            return Ok(response);
+        }
+
+        [HttpPost("me/transactions")]
+        [Authorize(Constants.Policy.EndUser)]
+        [ValidateModel]
+        [ProducesResponseType(typeof(TransactionDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> CreateCurrentUserTransaction([FromBody] CreateTransactionDto createTransactionDto)
+        {
+            var userGuid = User.GetUserGuid();
+            if (userGuid == null)
+                return Forbid();
+
+            var response = await _transactionsService.CreateTransactionAsync(createTransactionDto, userGuid.Value);
+            return CreatedAtRoute("GetTransaction", new { id = response.Id }, response);
         }
 
         [HttpPost("{id}/transactions")]
-        [Authorize]
-        public IActionResult CreateUserTransaction(string id)
+        [Authorize(Constants.Policy.Management)]
+        [ValidateModel]
+        [ProducesResponseType(typeof(TransactionDto), (int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> CreateUserTransaction(Guid id, [FromBody] CreateTransactionDto createTransactionDto)
         {
-            return CreatedAtRoute("GetTransaction", new {id = 1}, new {transactionid = 1});
+            var response = await _transactionsService.CreateTransactionAsync(createTransactionDto, id);
+            return CreatedAtRoute("GetTransaction", new {id = response.Id}, response);
         }
     }
 }

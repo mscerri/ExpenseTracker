@@ -1,4 +1,6 @@
-﻿using ExpenseTracker.Services.Exceptions;
+﻿using System;
+using System.Net;
+using ExpenseTracker.Services.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -7,10 +9,8 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.Net;
 
-namespace ExpenseTracker.Api
+namespace ExpenseTracker.Api.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

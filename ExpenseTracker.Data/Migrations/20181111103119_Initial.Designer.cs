@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseTracker.Data.Migrations
 {
     [DbContext(typeof(ExpenseTrackerDbContext))]
-    [Migration("20181111000224_Initial")]
+    [Migration("20181111103119_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,9 @@ namespace ExpenseTracker.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("Money");
+
                     b.Property<DateTimeOffset>("CreatedAt");
 
                     b.Property<int>("CurrencyId");
@@ -65,8 +68,6 @@ namespace ExpenseTracker.Data.Migrations
                     b.Property<DateTimeOffset?>("UpdateAt");
 
                     b.Property<long>("UserId");
-
-                    b.Property<decimal>("Value");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()

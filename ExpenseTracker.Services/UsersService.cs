@@ -5,9 +5,11 @@ using ExpenseTracker.Api.Data;
 using ExpenseTracker.Data.Models;
 using ExpenseTracker.DTO;
 using ExpenseTracker.Services.Exceptions;
+using ExpenseTracker.Services.Extensions;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ExpenseTracker.Services
 {
@@ -15,11 +17,13 @@ namespace ExpenseTracker.Services
     {
         private readonly ExpenseTrackerDbContext _dbContext;
         private readonly IPasswordHasher<UserDto> _passwordHasher;
+        private readonly ILogger<UsersService> _logger;
 
-        public UsersService(ExpenseTrackerDbContext dbContext, IPasswordHasher<UserDto> passwordHasher)
+        public UsersService(ExpenseTrackerDbContext dbContext, IPasswordHasher<UserDto> passwordHasher, ILogger<UsersService> logger)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
+            _logger = logger;
         }
 
         public async Task<UserDto> RegisterUserAsync(RegisterUserDto userRegistrationDto)
@@ -44,7 +48,7 @@ namespace ExpenseTracker.Services
             return entityToCreate.ToDto();
         }
 
-        public async Task<UserDto> FindUserByUserGuidAsync(Guid userGuid)
+        public async Task<UserDto> FindUserByGuidAsync(Guid userGuid)
         {
             var user = await _dbContext.Users.SingleElementAsync(u => u.UserGuid == userGuid);
             return user.ToDto();
@@ -77,6 +81,6 @@ namespace ExpenseTracker.Services
             await _dbContext.SaveChangesAsync();
 
             return user.ToDto();
-        }        
+        }
     }
 }

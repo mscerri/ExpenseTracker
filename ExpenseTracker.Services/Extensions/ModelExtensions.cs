@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Data.Models;
 using ExpenseTracker.DTO;
 
-namespace ExpenseTracker.Services
+namespace ExpenseTracker.Services.Extensions
 {
     public static class ModelExtensions
     {
@@ -14,6 +14,19 @@ namespace ExpenseTracker.Services
                 Surname = model.Surname,
                 Email = model.Email,
                 IsActive = model.IsActive
+            };
+        }
+
+        public static TransactionDto ToDto(this Transaction transaction)
+        {
+            return new TransactionDto()
+            {
+                Id = transaction.TransactionGuid,
+                Amount = transaction.Amount,
+                Currency = transaction.Currency.ToDto(),
+                Category = transaction.TransactionCategory.ToDto(),
+                Note = transaction.Note,
+                ExecutionDate = transaction.ExecutionDate
             };
         }
 

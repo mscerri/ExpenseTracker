@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using ExpenseTracker.Api.Extensions;
+using ExpenseTracker.Services.Extensions;
 
 namespace ExpenseTracker.Api
 {
@@ -46,7 +48,8 @@ namespace ExpenseTracker.Api
             var policyToScopesMappings = new Dictionary<string, string[]>
             {
                 { Constants.Policy.Management, new[] { Constants.Scopes.Manage } },
-                { Constants.Policy.EndUser, new[] { Constants.Scopes.TrackExpenses } }
+                { Constants.Policy.EndUser, new[] { Constants.Scopes.TrackExpenses } },
+                { Constants.Policy.Any, new [] { Constants.Scopes.Manage, Constants.Scopes.TrackExpenses } }
             };
 
             services.AddMvcCore()

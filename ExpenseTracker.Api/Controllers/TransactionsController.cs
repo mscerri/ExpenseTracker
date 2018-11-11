@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExpenseTracker.DTO;
+using ExpenseTracker.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using ExpenseTracker.Api.Validation;
 
 namespace ExpenseTracker.Api.Controllers
 {
@@ -6,20 +13,35 @@ namespace ExpenseTracker.Api.Controllers
     [Route("api/v{version:apiVersion}/transactions")]
     public class TransactionsController : ControllerBase
     {
-        [HttpGet("{id}", Name = "GetTransaction")]
-        public IActionResult GetTransaction(long id)
+        private readonly ITransactionsService _transactionsService;
+
+        public TransactionsController(ITransactionsService transactionsService)
         {
-            return Ok();
+            _transactionsService = transactionsService;
+        }
+
+        [HttpGet("{id}", Name = "GetTransaction")]
+        [Authorize(Constants.Policy.Any)]
+        [ProducesResponseType(typeof(TransactionDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> GetTransaction(Guid id)
+        {
+            var response = await _transactionsService.FindTransactionByGuidAsync(id);
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateTransaction(long id)
+        [Authorize(Constants.Policy.Any)]
+        [ValidateModel]
+        public IActionResult UpdateTransaction(Guid id, [FromBody] UpdateTransactionDto updateTransactionDto)
         {
+            _transactionsService.UpdateTransactionAsync(id, updateTransactionDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteTransaction(long id)
+        [Authorize(Constants.Policy.Any)]
+        public IActionResult DeleteTransaction(Guid id)
         {
             return NoContent();
         }

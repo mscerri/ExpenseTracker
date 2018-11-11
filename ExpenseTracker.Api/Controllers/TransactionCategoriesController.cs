@@ -1,11 +1,10 @@
 ﻿using ExpenseTracker.Api.Validation;
+using ExpenseTracker.DTO;
+using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
-using ExpenseTracker.DTO;
-using ExpenseTracker.Services;
-using ExpenseTracker.Services.Interfaces;
 
 namespace ExpenseTracker.Api.Controllers
 {
@@ -21,8 +20,7 @@ namespace ExpenseTracker.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Constants.Policy.EndUser)]
-        [Authorize(Constants.Policy.Management)]
+        [Authorize(Constants.Policy.Any)]
         [ProducesResponseType(typeof(TransactionCategoryDto[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetTransactionCategories()
         {
@@ -31,8 +29,7 @@ namespace ExpenseTracker.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetTransactionCategory")]
-        [Authorize(Constants.Policy.EndUser)]
-        [Authorize(Constants.Policy.Management)]
+        [Authorize(Constants.Policy.Any)]
         [ProducesResponseType(typeof(TransactionCategoryDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetTransactionCategory(int id)

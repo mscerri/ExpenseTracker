@@ -26,7 +26,7 @@ namespace ExpenseTracker.Api.Identity
                     Scopes =
                     {
                         new Scope(Constants.Scopes.TrackExpenses),
-                        new Scope(Constants.Policy.Management)
+                        new Scope(Constants.Scopes.Manage)
                     },
                     UserClaims =
                     {
@@ -53,6 +53,19 @@ namespace ExpenseTracker.Api.Identity
                     AllowedScopes =
                     {
                         Constants.Scopes.TrackExpenses
+                    }
+                },
+                new Client
+                {
+                    ClientId = "0e4ff7f8-9679-478a-a55c-2444df9c9fc7",
+                    ClientSecrets =
+                    {
+                        new Secret("ccde1e22-85e1-4419-b14a-5d32ca923683".Sha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes =
+                    {
+                        Constants.Scopes.Manage
                     }
                 }
             };

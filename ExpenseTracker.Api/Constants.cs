@@ -6,6 +6,7 @@
         {
             public const string Management = nameof(Management);
             public const string EndUser = nameof(EndUser);
+            public const string Any = nameof(Any);
         }
 
         public static class Scopes

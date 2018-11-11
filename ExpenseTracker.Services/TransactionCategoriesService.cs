@@ -5,18 +5,22 @@ using System.Threading.Tasks;
 using ExpenseTracker.Api.Data;
 using ExpenseTracker.Data.Models;
 using ExpenseTracker.DTO;
+using ExpenseTracker.Services.Extensions;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ExpenseTracker.Services
 {
     public class TransactionCategoriesService : ITransactionCategoriesService
     {
         private readonly ExpenseTrackerDbContext _dbContext;
+        private readonly ILogger<TransactionCategoriesService> _logger;
 
-        public TransactionCategoriesService(ExpenseTrackerDbContext dbContext)
+        public TransactionCategoriesService(ExpenseTrackerDbContext dbContext, ILogger<TransactionCategoriesService> logger)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _logger = logger;
         }
 
         public async Task<IEnumerable<TransactionCategoryDto>> ListAllTransactionCategoriesAsync()

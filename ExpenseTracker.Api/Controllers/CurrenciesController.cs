@@ -1,11 +1,10 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using ExpenseTracker.Api.Validation;
+﻿using ExpenseTracker.Api.Validation;
 using ExpenseTracker.DTO;
-using ExpenseTracker.Services;
 using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ExpenseTracker.Api.Controllers
 {
@@ -21,8 +20,7 @@ namespace ExpenseTracker.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Constants.Policy.EndUser)]
-        [Authorize(Constants.Policy.Management)]
+        [Authorize(Constants.Policy.Any)]
         [ProducesResponseType(typeof(CurrencyDto[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCurrencies()
         {
@@ -31,8 +29,7 @@ namespace ExpenseTracker.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetCurrency")]
-        [Authorize(Constants.Policy.EndUser)]
-        [Authorize(Constants.Policy.Management)]
+        [Authorize(Constants.Policy.Any)]
         [ProducesResponseType(typeof(CurrencyDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetCurrency(int id)

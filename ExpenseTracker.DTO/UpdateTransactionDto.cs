@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTracker.DTO
 {
-    public class CreateTransactionDto
+    public class UpdateTransactionDto
     {
         [Required]
         public decimal? Amount { get; set; }

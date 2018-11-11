@@ -30,7 +30,7 @@ namespace ExpenseTracker.Api.Identity
 
             try
             {
-                var user = await _usersService.FindUserByUserGuidAsync(Guid.Parse(sub));
+                var user = await _usersService.FindUserByGuidAsync(Guid.Parse(sub));
 
                 var claims = new List<Claim>
                 {
@@ -53,7 +53,7 @@ namespace ExpenseTracker.Api.Identity
 
             try
             {
-                var user = await _usersService.FindUserByUserGuidAsync(Guid.Parse(sub));
+                var user = await _usersService.FindUserByGuidAsync(Guid.Parse(sub));
                 context.IsActive = user.IsActive;
             }
             catch (NotFoundException)
