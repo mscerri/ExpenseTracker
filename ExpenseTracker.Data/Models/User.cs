@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ExpenseTracker.Api.Models
+namespace ExpenseTracker.Data.Models
 {
     public class User
     {

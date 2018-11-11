@@ -1,13 +1,14 @@
-﻿using ExpenseTracker.Api.Data;
-using ExpenseTracker.Api.Dtos;
-using ExpenseTracker.Api.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseTracker.Api.Data;
+using ExpenseTracker.Api.Dtos;
+using ExpenseTracker.Data.Models;
+using ExpenseTracker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services
 {
     public class TransactionCategoriesService : ITransactionCategoriesService
     {

@@ -1,10 +1,11 @@
-﻿using ExpenseTracker.Api.Services;
-using ExpenseTracker.Api.Services.Exceptions;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using ExpenseTracker.Services;
+using ExpenseTracker.Services.Exceptions;
+using ExpenseTracker.Services.Interfaces;
 
 namespace ExpenseTracker.Api.Identity
 {

@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.Api.Models;
+﻿using ExpenseTracker.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

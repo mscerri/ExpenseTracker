@@ -1,6 +1,4 @@
-﻿using ExpenseTracker.Api.Services;
-using ExpenseTracker.Api.Services.Exceptions;
-using IdentityServer4.Extensions;
+﻿using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
@@ -8,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ExpenseTracker.Services;
+using ExpenseTracker.Services.Exceptions;
+using ExpenseTracker.Services.Interfaces;
 using IdentityModel;
 
 namespace ExpenseTracker.Api.Identity

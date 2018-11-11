@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="2.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExpenseTracker.Data\ExpenseTracker.Data.csproj" />
+    <ProjectReference Include="..\ExpenseTracker.DTO\ExpenseTracker.DTO.csproj" />
+    <ProjectReference Include="..\ExpenseTracker.Services\ExpenseTracker.Services.csproj" />
+  </ItemGroup>
+
 </Project>

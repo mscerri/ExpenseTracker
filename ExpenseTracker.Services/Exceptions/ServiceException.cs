@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExpenseTracker.Api.Services.Exceptions
+namespace ExpenseTracker.Services.Exceptions
 {
     public class ServiceException : Exception
     {

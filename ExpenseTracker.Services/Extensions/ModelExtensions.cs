@@ -1,7 +1,7 @@
 ﻿using ExpenseTracker.Api.Dtos;
-using ExpenseTracker.Api.Models;
+using ExpenseTracker.Data.Models;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services
 {
     public static class ModelExtensions
     {

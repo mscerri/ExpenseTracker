@@ -1,9 +1,10 @@
 ﻿using ExpenseTracker.Api.Dtos;
+using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services
 {
     public static class ServiceCollectionExtensions
     {

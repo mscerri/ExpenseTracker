@@ -3,8 +3,9 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using ExpenseTracker.Api.Dtos;
-using ExpenseTracker.Api.Services;
 using ExpenseTracker.Api.Validation;
+using ExpenseTracker.Services;
+using ExpenseTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

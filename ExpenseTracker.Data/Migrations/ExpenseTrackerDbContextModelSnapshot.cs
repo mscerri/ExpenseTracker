@@ -4,16 +4,14 @@ using ExpenseTracker.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ExpenseTracker.Api.Data.Migrations
+namespace ExpenseTracker.Data.Migrations
 {
     [DbContext(typeof(ExpenseTrackerDbContext))]
-    [Migration("20181110123825_Initial")]
-    partial class Initial
+    partial class ExpenseTrackerDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +19,7 @@ namespace ExpenseTracker.Api.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ExpenseTracker.Api.Models.Currency", b =>
+            modelBuilder.Entity("ExpenseTracker.Data.Models.Currency", b =>
                 {
                     b.Property<int>("CurrencyId")
                         .ValueGeneratedOnAdd()
@@ -43,7 +41,7 @@ namespace ExpenseTracker.Api.Data.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("ExpenseTracker.Api.Models.Transaction", b =>
+            modelBuilder.Entity("ExpenseTracker.Data.Models.Transaction", b =>
                 {
                     b.Property<long>("TransactionId")
                         .ValueGeneratedOnAdd()
@@ -86,7 +84,7 @@ namespace ExpenseTracker.Api.Data.Migrations
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("ExpenseTracker.Api.Models.TransactionCategory", b =>
+            modelBuilder.Entity("ExpenseTracker.Data.Models.TransactionCategory", b =>
                 {
                     b.Property<int>("TransactionCategoryId")
                         .ValueGeneratedOnAdd()
@@ -108,7 +106,7 @@ namespace ExpenseTracker.Api.Data.Migrations
                     b.ToTable("TransactionCategories");
                 });
 
-            modelBuilder.Entity("ExpenseTracker.Api.Models.User", b =>
+            modelBuilder.Entity("ExpenseTracker.Data.Models.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
@@ -149,19 +147,19 @@ namespace ExpenseTracker.Api.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ExpenseTracker.Api.Models.Transaction", b =>
+            modelBuilder.Entity("ExpenseTracker.Data.Models.Transaction", b =>
                 {
-                    b.HasOne("ExpenseTracker.Api.Models.Currency", "Currency")
+                    b.HasOne("ExpenseTracker.Data.Models.Currency", "Currency")
                         .WithMany()
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ExpenseTracker.Api.Models.TransactionCategory", "TransactionCategory")
+                    b.HasOne("ExpenseTracker.Data.Models.TransactionCategory", "TransactionCategory")
                         .WithMany()
                         .HasForeignKey("TransactionCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ExpenseTracker.Api.Models.User", "User")
+                    b.HasOne("ExpenseTracker.Data.Models.User", "User")
                         .WithMany("Transactions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

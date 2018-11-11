@@ -1,23 +1,16 @@
-﻿using ExpenseTracker.Api.Data;
-using ExpenseTracker.Api.Dtos;
-using ExpenseTracker.Api.Models;
-using ExpenseTracker.Api.Services.Exceptions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseTracker.Api.Data;
+using ExpenseTracker.Api.Dtos;
+using ExpenseTracker.Data.Models;
+using ExpenseTracker.Services.Exceptions;
+using ExpenseTracker.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services
 {
-    public interface IUsersService
-    {
-        Task<UserDto> RegisterUserAsync(RegisterUserDto userRegistrationDto);
-        Task<UserDto> FindUserByUserGuidAsync(Guid userGuid);
-        Task<UserDto> FindUserByEmailAsync(string email);
-        Task<bool> VerifyUserPassword(UserDto userDto, string password);
-    }
-
     public class UsersService : IUsersService
     {
         private readonly ExpenseTrackerDbContext _dbContext;

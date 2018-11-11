@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api", "Expen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.App", "ExpenseTracker.App\ExpenseTracker.App.csproj", "{BD08F10A-A0A3-4E50-B51A-5927182B7CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Api.Tests", "ExpenseTracker.Api.Tests\ExpenseTracker.Api.Tests.csproj", "{05AE7F20-6B65-4453-B3A6-BE304D2291F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker.Api.Tests", "ExpenseTracker.Api.Tests\ExpenseTracker.Api.Tests.csproj", "{05AE7F20-6B65-4453-B3A6-BE304D2291F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Services", "ExpenseTracker.Services\ExpenseTracker.Services.csproj", "{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Data", "ExpenseTracker.Data\ExpenseTracker.Data.csproj", "{C1A7C21D-93E4-4D15-B384-474A060BCAD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.DTO", "ExpenseTracker.DTO\ExpenseTracker.DTO.csproj", "{2444EB0A-104F-4844-B76B-894485210519}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +33,18 @@ Global
 		{05AE7F20-6B65-4453-B3A6-BE304D2291F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05AE7F20-6B65-4453-B3A6-BE304D2291F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05AE7F20-6B65-4453-B3A6-BE304D2291F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1CD7CE-BF14-4D7E-8CEF-31669C031A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A7C21D-93E4-4D15-B384-474A060BCAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A7C21D-93E4-4D15-B384-474A060BCAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A7C21D-93E4-4D15-B384-474A060BCAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A7C21D-93E4-4D15-B384-474A060BCAD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2444EB0A-104F-4844-B76B-894485210519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2444EB0A-104F-4844-B76B-894485210519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2444EB0A-104F-4844-B76B-894485210519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2444EB0A-104F-4844-B76B-894485210519}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

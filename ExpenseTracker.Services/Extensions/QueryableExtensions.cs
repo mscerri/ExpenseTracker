@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ExpenseTracker.Api.Services.Exceptions;
+using ExpenseTracker.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services
 {
     public static class QueryableExtensions
     {

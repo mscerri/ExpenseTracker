@@ -1,7 +1,5 @@
 ﻿using ExpenseTracker.Api.Data;
 using ExpenseTracker.Api.Identity;
-using ExpenseTracker.Api.Services;
-using ExpenseTracker.Api.Services.Exceptions;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -17,6 +15,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using ExpenseTracker.Services;
+using ExpenseTracker.Services.Exceptions;
 
 namespace ExpenseTracker.Api
 {
@@ -33,16 +33,10 @@ namespace ExpenseTracker.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                })
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
+            services.AddIdentityServer()
+                .AddInMemoryIdentityResources(InMemoryConfigs.GetIdentityResources())
+                .AddInMemoryApiResources(InMemoryConfigs.GetApiResources())
+                .AddInMemoryClients(InMemoryConfigs.GetClients())
                 .AddDeveloperSigningCredential() //not to be used on prod
                 .AddRequiredServices();
 

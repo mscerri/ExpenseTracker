@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ExpenseTracker.Api.Dtos;
 
-namespace ExpenseTracker.Api.Services
+namespace ExpenseTracker.Services.Interfaces
 {
     public interface ITransactionCategoriesService
     {
